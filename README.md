@@ -82,21 +82,12 @@ At Virtualbox press **New** button at the let corner.
 ![Partition disk](/assets/roger/7.png)
   
 ***
+# CHANGE THIS
 
   For partition method, select **Manual**.
   Select your VBOX HARDDISK. 
   Create new empty partition table on this device? select **Yes**
-  Select pri/log 8.6 GB FREE SPACE --> Create a new partition --> Partition size 4.2 GB --> Primary --> Beginning --> Done setting up the partition
-  
-***
-  
-  ![Partition disk](/assets/roger/8.png)
-  
-***
-
-  ![Partition disk](/assets/roger/9.png)
-
-***
+  Select pri/log 8.6 GB FREE SPACE --> Create a new partition --> Partition size 4.5 GB --> Primary --> Beginning --> Done setting up the partition
 
 Select pri/log 4.4 GB FREE SPACE --> Create a new partition --> Partition size 2.4 GB --> Logical --> Beginning --> (Mount point: /home) Done setting up the partition
   
@@ -217,7 +208,7 @@ Save the file and restart your ssh with command `service ssh restart`
 _try to connect to your VM again_ `ssh -i vm -p '5534' 'regular@10.11.200.54'`
 
 
-- [] You have to set the rules of your firewall on your server only with the services used
+- [x] You have to set the rules of your firewall on your server only with the services used
 outside the VM.
 
 First you need to install ufw (Uncomplicated Firewall) with command `sudo apt install ufw`
@@ -241,7 +232,7 @@ Example:
 
 `sudo ufw 443`
 
-- [] You have to set a DOS (Denial Of Service Attack) protection on your open ports of your VM.
+- [x] You have to set a DOS (Denial Of Service Attack) protection on your open ports of your VM.
 
 	We need to install Fail2Ban with command `apt install fail2ban`
 	
@@ -333,11 +324,36 @@ logpath = /opt/openhab/logs/request.log
 ```
 	
 	
-- [] You have to set a protection against scans on your VM’s open ports.
+- [x] You have to set a protection against scans on your VM’s open ports.
 
 To protect yourself against port scanning, we need to install software called Portsentry
 
-https://blog.rapid7.com/2017/06/24/how-to-install-and-use-psad-ids-on-ubuntu-linux/
+Install it with command: sudo apt install portsentry
+
+We need to modify some config files _(/etc/default/portsentry , /etc/portsentry/portsentry.conf)_ before out protection works.
+
+In file /etc/default/portsentry Change 
+
+TCP_MODE="tcp"
+UPD_MODE="upd"
+
+to
+
+TCP_MODE="atcp"
+UPD_MODE="aupd"
+
+In file /etc/portsentry/portsentry.conf change lines
+_line 135_
+BLOCK_UDP="0"
+_line 136_
+BLOCK_TCP="0"
+
+_line 209_
+
+Uncomment line 209
+
+KILL_ROUTE="/sbin/iptables -I INPUT -s $TARGET$ -j DROP"
+After the changes, restart the service: `sudo service portsentry restart`
 
 - [] Stop the services you don’t need for this project.
 
