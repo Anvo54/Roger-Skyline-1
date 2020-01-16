@@ -171,7 +171,7 @@ and create a new file */etc/network/interfaces.d/enp0s3*
 
 ```
 iface enp0s3 inet static
-	address 10.11.200.54
+	address 10.11.200.XXX
 	netmask 255.255.255.252
 	gateway 10.11.254.254
 ```
