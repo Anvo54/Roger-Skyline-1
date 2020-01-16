@@ -175,6 +175,8 @@ iface enp0s3 inet static
 	netmask 255.255.255.252
 	gateway 10.11.254.254
 ```
+Remove /etc/interfaces.d/setup
+
 
 Now reboot your VM with command `sudo reboot`
 
