@@ -105,7 +105,7 @@ At Virtualbox press **New** button at the let corner.
 	
 When you are logged in, use command `cfdisk` to check thath your partition table looks something like this. 
 
-![Disk partition](/assets/rogerpartition_table.png)
+![Disk partition](/assets/roger/partition_table.png)
 
 if not, then you can resize it with cfdisk.
 
