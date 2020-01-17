@@ -246,9 +246,9 @@ Example:
 
 	We need to install Fail2Ban with command `apt install fail2ban`
 	
-	First copy your jail file to local file. _(/etc/jail.conf is a file where you set-up rules for your DOS protection.)_
+	First copy your jail file to local file. _(/etc/fail2ban/jail.conf is a file where you set-up rules for your DOS protection.)_
 	
-	`sudo cp /etc/jail.conf /etc/jail.local`
+	`sudo cp /etc/fail2ban/jail.conf /etc/fail2ban/jail.local`
 	Our current open ports are http 442 and ssh 5534
 	
 	**Example for ssh**
