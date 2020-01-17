@@ -138,6 +138,16 @@ followed by group name and username
 ```
 usermod -aG sudo fourtytwo
 ```
+also edit sudoers file with command visudo
+
+After `root ALL=(ALL:ALL) ALL`
+
+Add a new line
+
+`newuser ALL=(ALL:ALL) ALL`
+
+Save the file and reboot!
+
 - [x] We don’t want you to use the DHCP service of your machine. You’ve got to
 configure it to have a static IP and a Netmask in \30.
 
@@ -357,6 +367,21 @@ After the changes, restart the service: `sudo service portsentry restart`
 
 - [] Stop the services you don’t need for this project.
 
+You can see your current processes with command 
+
+`sudo service --status-all`
+
+There you can see all the services that are currently running. You can stop the serices with following command:
+
+`sudo systemctl stop SERVICENAME`
+
+Example: `sudo systemctl stop dbus`
+
+And to disable them frm starting at the boot. You can use **disable** option
+
+Example:
+
+`sudo systemctl disable dbus`
 
 
 - [] Create a script that updates all the sources of package, then your packages and
