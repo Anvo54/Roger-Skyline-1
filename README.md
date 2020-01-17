@@ -89,28 +89,28 @@ At Virtualbox press **New** button at the let corner.
   Create new empty partition table on this device? select **Yes**
   Select pri/log 8.6 GB FREE SPACE --> Create a new partition --> Partition size 4.5 GB --> Primary --> Beginning --> Done setting up the partition
 
-Select pri/log 4.4 GB FREE SPACE --> Create a new partition --> Partition size 2.4 GB --> Logical --> Beginning --> (Mount point: /home) Done setting up the partition
-  
-  Select pri/log 2.0 GB FREE SPACE --> Create a new partition --> Partition size 2.0 GB --> Logical --> Beginning --> Use as: swap area --> Done setting up the partition --> Finish partitioning and write changes to disk & Yes
+  Partition rest as you like.
 
 12.  Configure the package manager: Use a network mirror? **<Yes>** -> Finland --> deb.debian.org --> *(Press enter when asked for proxy)*
+	
 13. Install GRUB?: **Yes** --> /dev/sda
+
 14. Restart the VM and login with your root credentials.
+
 15. type in following command to update the package list and upgrade your old packages
   ```
   apt update && apt upgrade -y
   ```
 #### Partitioning revisited
 	
-When you are logged in, use command `cfdisk` to resize some of your freshly created partition to 4.2G.
+When you are logged in, use command `cfdisk` to check thath your partition table looks something like this. 
 
-RESULT BELOW
+![Disk partition](/assets/rogerpartition_table.png)
 
-***
+if not, then you can resize it with cfdisk.
 
-![Disk partition](/assets/roger/partition.png)
 
-***
+
 	
 ## Network and Security Part
  
