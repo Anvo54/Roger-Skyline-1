@@ -387,6 +387,58 @@ which logs the whole in a file named /var/log/update_script.log. Create a schedu
 task for this script once a week at 4AM and every time the machine reboots.
 
 
+### 1. Create script
+
+_update_script_
+
+```console
+#!/bin/bash
+LOG_FILE=/var/log/update_script.log
+if [ -f "$LOG_FILE" ]; then
+	sudo chmod 666 $LOG_FILE
+else
+	sudo touch $LOG_FILE
+	sudo chmod 666 $LOG_FILE
+fi
+sudo apt update -y && sudo apt upgrade -y 1> $LOG_FILE
+```
+### 2. Create scheduled task
+
+* Once a week 4 AM
+ 
+ Move file to cron weekly folder (/etc/cron.weekly) 
+ remove any extensions like .sh at the end of the file. Otherwise it won't run.
+ 
+ `mv update_script.sh /etc/cron.weekly/update_script`
+
+Now edit your crontab file (/etc/crontab)
+
+```console
+# /etc/crontab: system-wide crontab
+# Unlike any other crontab you don't have to run the `crontab'
+# command to install the new version when you edit this file
+# and files in /etc/cron.d. These files also have username fields,
+# that none of the other crontabs do.
+
+SHELL=/bin/sh
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+
+# Example of job definition:
+# .---------------- minute (0 - 59)
+# |  .------------- hour (0 - 23)
+# |  |  .---------- day of month (1 - 31)
+# |  |  |  .------- month (1 - 12) OR jan,feb,mar,apr ...
+# |  |  |  |  .---- day of week (0 - 6) (Sunday=0 or 7) OR sun,mon,tue,wed,thu,fri,sat
+# |  |  |  |  |
+# *  *  *  *  * user-name command to be executed
+17 *	* * *	root    cd / && run-parts --report /etc/cron.hourly
+25 6	* * *	root	test -x /usr/sbin/anacron || ( cd / && run-parts --report /etc/cron.daily )
+0  4	* * 7	root	test -x /usr/sbin/anacron || ( cd / && run-parts --report /etc/cron.weekly )
+52 6	1 * *	root	test -x /usr/sbin/anacron || ( cd / && run-parts --report /etc/cron.monthly )
+#
+```
+
+* Everytime machine reboots
 
 - [] Make a script to monitor changes of the /etc/crontab file and sends an email to
 root if it has been modified. Create a scheduled script task every day at midnight.
