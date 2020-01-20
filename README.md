@@ -82,8 +82,6 @@ At Virtualbox press **New** button at the let corner.
 ![Partition disk](/assets/roger/7.png)
   
 ***
-# CHANGE THIS
-
   For partition method, select **Manual**.
   Select your VBOX HARDDISK. 
   Create new empty partition table on this device? select **Yes**
