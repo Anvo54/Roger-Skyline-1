@@ -410,11 +410,6 @@ echo "System script done" | mail -s "System update script" regular
  Move file to cron weekly folder (/etc/cron.weekly) 
  remove any extensions like .sh at the end of the file. Otherwise it won't run.
  
- `mv update_script.sh /etc/cron.weekly/update_script`
-
-Now edit your crontab file with command `sudo crontab -e` and add line `@reboot /etc/cron.weekly/update_script`
-
-Now reboot!
 
 ```console
 # /etc/crontab: system-wide crontab
@@ -441,12 +436,28 @@ PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 #
 ```
 
-To test that this works. Use coommand: `sudo run-parts -v /etc/cron.weekly`
+To test that this works. Use command: `sudo run-parts -v /etc/cron.weekly`
 
 
-* Everytime machine reboots
+#### Everytime machine reboots
+ 
+`mv update_script.sh /etc/cron.weekly/update_script`
 
-To make the script run
+Now edit your crontab file with command `sudo crontab -e` and add line `@reboot /etc/cron.weekly/update_script`
+
+Now reboot!
+
 
 - [] Make a script to monitor changes of the /etc/crontab file and sends an email to
 root if it has been modified. Create a scheduled script task every day at midnight.
+
+
+For security reasons it's good to redirect your rot mail to another user that has less rights. To do this modify /etc/aliases file.
+
+`sudo vim /etc/aliases`
+
+add following line
+
+`root: regular`
+
+and save. (regular == users name)
