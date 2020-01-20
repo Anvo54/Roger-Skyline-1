@@ -401,6 +401,7 @@ else
 	sudo chmod 666 $LOG_FILE
 fi
 sudo apt update -y && sudo apt upgrade -y 1> $LOG_FILE
+echo "System script done" | mail -s "System update script" regular
 ```
 ### 2. Create scheduled task
 
@@ -411,7 +412,9 @@ sudo apt update -y && sudo apt upgrade -y 1> $LOG_FILE
  
  `mv update_script.sh /etc/cron.weekly/update_script`
 
-Now edit your crontab file (/etc/crontab)
+Now edit your crontab file with command `sudo crontab -e` and add line `@reboot /etc/cron.weekly/update_script`
+
+Now reboot!
 
 ```console
 # /etc/crontab: system-wide crontab
@@ -438,7 +441,12 @@ PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 #
 ```
 
+To test that this works. Use coommand: `sudo run-parts -v /etc/cron.weekly`
+
+
 * Everytime machine reboots
+
+To make the script run
 
 - [] Make a script to monitor changes of the /etc/crontab file and sends an email to
 root if it has been modified. Create a scheduled script task every day at midnight.
