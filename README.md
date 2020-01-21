@@ -403,7 +403,8 @@ fi
 sudo apt update -y && sudo apt upgrade -y 1> $LOG_FILE
 echo "System script done" | mail -s "System update script" regular
 ```
-### 2. Create scheduled task
+### 2. Create scheduled task (Possible error!)
+You should create cronjob?!
 
 * Once a week 4 AM
  
@@ -451,6 +452,24 @@ Now reboot!
 - [] Make a script to monitor changes of the /etc/crontab file and sends an email to
 root if it has been modified. Create a scheduled script task every day at midnight.
 
+##### Script
+
+```console
+#!/bin/bash
+if [ -z $(sudo find /etc/crontab -mmin -1440) ]
+then
+	exit;
+else
+	echo "Crontab has been changed" | mail -s "Crontab notification" root
+fi
+```
+Explanation:
+
+	-z $(sudo find /etc/crontab --mmin -1440)
+	
+	-z means that it should return 0
+	
+	-mmin flag at find means that it will return filename if the file has been modifien in 1440 minutes
 
 For security reasons it's good to redirect your rot mail to another user that has less rights. To do this modify /etc/aliases file.
 
