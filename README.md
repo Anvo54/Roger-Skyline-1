@@ -520,3 +520,7 @@ Modify crontab with command: `sudo crontab -e`
 
 Save and reboot to check that it works
 
+
+## SSL
+
+https://wiki.debian.org/Self-Signed_Certificate
