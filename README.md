@@ -403,7 +403,7 @@ fi
 sudo apt update -y && sudo apt upgrade -y 1> $LOG_FILE
 echo "System script done" | mail -s "System update script" regular
 ```
-### 2. Create scheduled task (Possible error!)
+### 2. Create scheduled task ** Versin 1 **
 You should create cronjob?!
 
 * Once a week 4 AM
@@ -478,5 +478,45 @@ For security reasons it's good to redirect your rot mail to another user that ha
 add following line
 
 `root: regular`
-
 and save. (regular == users name)
+
+#### Version 2
+
+
+Create a folder /root/scripts and copy scripts in there
+
+Modify crontab with command: `sudo crontab -e`
+
+```console
+
+# Edit this file to introduce tasks to be run by cron.
+#
+# Each task to run has to be defined through a single line
+# indicating with different fields when the task will be run
+# and what command to run for the task
+#
+# To define the time you can provide concrete values for
+# minute (m), hour (h), day of month (dom), month (mon),
+# and day of week (dow) or use '*' in these fields (for 'any').
+#
+# Notice that tasks will be started based on the cron's system
+# daemon's notion of time and timezones.
+#
+# Output of the crontab jobs (including errors) is sent through
+# email to the user the crontab file belongs to (unless redirected).
+#
+# For example, you can run a backup of all your user accounts
+# at 5 a.m every week with:
+# 0 5 * * 1 tar -zcf /var/backups/home.tgz /home/
+#
+# For more information see the manual pages of crontab(5) and cron(8)
+#
+# m h  dom mon dow   command
+@reboot /root/scripts/update_script
+0 4 * * * /root/scripts/update_script
+0 0 * * * /root/scripts/cronwatcher
+
+```
+
+Save and reboot to check that it works
+
