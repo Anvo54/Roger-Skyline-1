@@ -254,83 +254,8 @@ Example:
 	`enabled	= true`
 	`port		= ssh, 5534`
 	
-	Rest below.
-```
-#
-# HTTP servers
-#
+	![instructins here](https://blog.rapid7.com/2017/02/13/how-to-protect-ssh-and-apache-using-fail2ban-on-ubuntu-linux/)
 
-[apache-auth]
-
-port     = http,https
-logpath  = %(apache_error_log)s
-enabled	 = true
-
-[apache-badbots]
-# Ban hosts which agent identifies spammer robots crawling the web
-# for email addresses. The mail outputs are buffered.
-port     = http,https
-logpath  = %(apache_access_log)s
-bantime  = 48h
-maxretry = 1
-enabled	= true
-
-[apache-noscript]
-
-port     = http,https
-logpath  = %(apache_error_log)s
-enabled = true
-
-[apache-overflows]
-
-port     = http,https
-logpath  = %(apache_error_log)s
-maxretry = 2
-enabled = true
-
-[apache-nohome]
-
-port     = http,https
-logpath  = %(apache_error_log)s
-maxretry = 2
-enabled = true
-
-[apache-botsearch]
-
-port     = http,https
-logpath  = %(apache_error_log)s
-maxretry = 2
-enabled = true
-
-[apache-fakegooglebot]
-
-port     = http,https
-logpath  = %(apache_access_log)s
-maxretry = 1
-ignorecommand = %(ignorecommands_dir)s/apache-fakegooglebot <ip>
-enabled = true
-
-[apache-modsecurity]
-
-port     = http,https
-logpath  = %(apache_error_log)s
-maxretry = 2
-enabled = true
-
-[apache-shellshock]
-
-port    = http,https
-logpath = %(apache_error_log)s
-maxretry = 1
-enabled = true
-
-[openhab-auth]
-
-filter = openhab
-action = iptables-allports[name=NoAuthFailures]
-logpath = /opt/openhab/logs/request.log
-```
-	
 	
 - [x] You have to set a protection against scans on your VM’s open ports.
 
@@ -363,7 +288,7 @@ Uncomment line 209
 KILL_ROUTE="/sbin/iptables -I INPUT -s $TARGET$ -j DROP"
 After the changes, restart the service: `sudo service portsentry restart`
 
-- [] Stop the services you don’t need for this project.
+- [x] Stop the services you don’t need for this project.
 
 You can see your current processes with command 
 
