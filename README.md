@@ -256,6 +256,8 @@ Example:
 	
 	![instructins here](https://blog.rapid7.com/2017/02/13/how-to-protect-ssh-and-apache-using-fail2ban-on-ubuntu-linux/)
 
+
+To test, use slowtris or somethingsimilar and see if ip gets banned with following command: `sudo fail2ban-client status http-get-dos`
 	
 - [x] You have to set a protection against scans on your VM’s open ports.
 
